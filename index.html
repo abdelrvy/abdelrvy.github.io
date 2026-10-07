@@ -1,10 +1,211 @@
 <!DOCTYPE html>
-<html>
-<head><title>Sharko Inc - Procedural Map Modeling</title></head>
-<body style="font-family: sans-serif; text-align: center; padding: 50px;">
-    <h1>Sharko Inc</h1>
-    <h2>Next-Gen Procedural Map Modeling & Generation</h2>
-    <p>Building advanced AI-driven tools to generate complex custom maps.</p>
-    <p>Contact: fondateur@fruitborne.me</p>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sharko Inc | Next-Gen UEFN Maps</title>
+    <style>
+        :root {
+            --primary: #00f2fe;
+            --secondary: #4facfe;
+            --bg-dark: #0b0f19;
+            --bg-card: #1a2235;
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes glow {
+            0% { box-shadow: 0 0 5px rgba(0, 242, 254, 0.2); }
+            50% { box-shadow: 0 0 20px rgba(0, 242, 254, 0.6); }
+            100% { box-shadow: 0 0 5px rgba(0, 242, 254, 0.2); }
+        }
+
+        /* Header & Hero Section */
+        header {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            background: radial-gradient(circle at center, #1a2540 0%, var(--bg-dark) 70%);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            color: #fff;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-bottom: 2rem;
+            animation: fadeIn 1s ease-out 0.3s backwards;
+        }
+
+        .cta-button {
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #fff;
+            background: linear-gradient(90deg, var(--secondary), var(--primary));
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+            animation: fadeIn 1s ease-out 0.6s backwards, glow 3s infinite;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #fff;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 242, 254, 0.1);
+            border-color: rgba(0, 242, 254, 0.3);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .card p {
+            color: var(--text-muted);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: #070a12;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .linkedin-link {
+            display: inline-block;
+            margin-top: 1rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .linkedin-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">SHARKO INC.</div>
+        <h1 class="hero-title">Procedural UEFN Worlds</h1>
+        <p class="hero-subtitle">Leveraging advanced AI models to generate complex, production-ready custom maps for Unreal Editor for Fortnite.</p>
+        <a href="#features" class="cta-button">Explore our tech</a>
+    </header>
+
+    <section id="features" class="features">
+        <h2 class="section-title">Built for Creators</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="card-icon">🧠</div>
+                <h3>AI-Driven Modeling</h3>
+                <p>We use cutting-edge LLMs to translate natural language prompts into complex spatial coordinates and architectural blueprints.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🏗️</div>
+                <h3>Procedural Generation</h3>
+                <p>Automate the tedious parts of level design. Generate expansive terrains, dynamic POIs, and balanced combat arenas in seconds.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">⚡</div>
+                <h3>UEFN Integration</h3>
+                <p>Export directly to Unreal Editor for Fortnite. Our code outputs are formatted for seamless Verse integration and asset placement.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <h2>Sharko Inc.</h2>
+        <p style="color: var(--text-muted); margin-top: 1rem;">Building the future of spatial computing and game design.</p>
+        <p style="margin-top: 0.5rem;">Contact: fondateur@fruitborne.me</p>
+        <!-- Remplacer le # par le lien de ton vrai profil LinkedIn pour la validation Anthropic -->
+        <a href="#" class="linkedin-link">Founder's LinkedIn Profile</a>
+        <p style="color: var(--text-muted); margin-top: 2rem; font-size: 0.9rem;">&copy; 2026 Sharko Inc. All rights reserved.</p>
+    </footer>
+
 </body>
 </html>
