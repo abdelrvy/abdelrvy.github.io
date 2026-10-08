@@ -1,210 +1,334 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sharko Inc | Next-Gen UEFN Maps</title>
+    <title>Sharko Inc. | Intelligent Code Analysis</title>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        background: '#0f172a', /* slate-900 */
+                        surface: '#1e293b', /* slate-800 */
+                        accent: {
+                            blue: '#3b82f6',
+                            purple: '#8b5cf6',
+                            glow: '#6366f1'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        :root {
-            --primary: #00f2fe;
-            --secondary: #4facfe;
-            --bg-dark: #0b0f19;
-            --bg-card: #1a2235;
-            --text-main: #e2e8f0;
-            --text-muted: #94a3b8;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-        }
-
         body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            line-height: 1.6;
-            overflow-x: hidden;
+            background-color: theme('colors.background');
+            color: #cbd5e1; /* slate-300 */
         }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes glow {
-            0% { box-shadow: 0 0 5px rgba(0, 242, 254, 0.2); }
-            50% { box-shadow: 0 0 20px rgba(0, 242, 254, 0.6); }
-            100% { box-shadow: 0 0 5px rgba(0, 242, 254, 0.2); }
-        }
-
-        /* Header & Hero Section */
-        header {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 2rem;
-            background: radial-gradient(circle at center, #1a2540 0%, var(--bg-dark) 70%);
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            letter-spacing: 2px;
-            position: absolute;
-            top: 2rem;
-            left: 2rem;
-            color: #fff;
-        }
-
-        .hero-title {
-            font-size: 4rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        .text-gradient {
+            background: linear-gradient(to right, #60a5fa, #c084fc);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: fadeIn 1s ease-out;
         }
-
-        .hero-subtitle {
-            font-size: 1.5rem;
-            color: var(--text-muted);
-            max-width: 600px;
-            margin-bottom: 2rem;
-            animation: fadeIn 1s ease-out 0.3s backwards;
-        }
-
-        .cta-button {
-            padding: 1rem 2.5rem;
-            font-size: 1.1rem;
-            font-weight: bold;
-            color: #fff;
-            background: linear-gradient(90deg, var(--secondary), var(--primary));
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            text-decoration: none;
-            transition: transform 0.3s ease;
-            animation: fadeIn 1s ease-out 0.6s backwards, glow 3s infinite;
-        }
-
-        .cta-button:hover {
-            transform: scale(1.05);
-        }
-
-        /* Features Section */
-        .features {
-            padding: 5rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #fff;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .card {
-            background: var(--bg-card);
-            padding: 2rem;
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(0, 242, 254, 0.1);
-            border-color: rgba(0, 242, 254, 0.3);
-        }
-
-        .card-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: #fff;
-        }
-
-        .card p {
-            color: var(--text-muted);
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 3rem 2rem;
-            background: #070a12;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .linkedin-link {
-            display: inline-block;
-            margin-top: 1rem;
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: bold;
-        }
-        
-        .linkedin-link:hover {
-            text-decoration: underline;
+        .glass-nav {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
     </style>
 </head>
-<body>
+<body class="antialiased selection:bg-accent-purple selection:text-white flex flex-col min-h-screen">
 
-    <header>
-        <div class="logo">SHARKO INC.</div>
-        <h1 class="hero-title">Procedural UEFN Worlds</h1>
-        <p class="hero-subtitle">Leveraging advanced AI models to generate complex, production-ready custom maps for Unreal Editor for Fortnite.</p>
-        <a href="#features" class="cta-button">Explore our tech</a>
-    </header>
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer">
+                    <svg class="w-8 h-8 text-accent-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                    <span class="font-bold text-xl text-white tracking-tight">Sharko Inc.</span>
+                </div>
+                
+                <!-- Desktop Links -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#features" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Features</a>
+                    <a href="#use-cases" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Solutions</a>
+                    <a href="#architecture" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Architecture</a>
+                    <a href="#contact" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Contact</a>
+                </div>
 
-    <section id="features" class="features">
-        <h2 class="section-title">Built for Creators</h2>
-        <div class="grid">
-            <div class="card">
-                <div class="card-icon">🧠</div>
-                <h3>AI-Driven Modeling</h3>
-                <p>We use cutting-edge LLMs to translate natural language prompts into complex spatial coordinates and architectural blueprints.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">🏗️</div>
-                <h3>Procedural Generation</h3>
-                <p>Automate the tedious parts of level design. Generate expansive terrains, dynamic POIs, and balanced combat arenas in seconds.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">⚡</div>
-                <h3>UEFN Integration</h3>
-                <p>Export directly to Unreal Editor for Fortnite. Our code outputs are formatted for seamless Verse integration and asset placement.</p>
+                <!-- CTA Button -->
+                <div class="hidden md:flex">
+                    <a href="#contact" class="inline-flex items-center justify-center px-5 py-2.5 border border-transparent text-sm font-medium rounded-full text-white bg-white/10 hover:bg-white/20 border-white/20 transition-all duration-200">
+                        Get Early Access
+                    </a>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button class="text-slate-300 hover:text-white focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
             </div>
         </div>
-    </section>
+    </nav>
 
-    <footer>
-        <h2>Sharko Inc.</h2>
-        <p style="color: var(--text-muted); margin-top: 1rem;">Building the future of spatial computing and game design.</p>
-        <p style="margin-top: 0.5rem;">Contact: fondateur@fruitborne.me</p>
-        <!-- Remplacer le # par le lien de ton vrai profil LinkedIn pour la validation Anthropic -->
-        <a href="#" class="linkedin-link">Founder's LinkedIn Profile</a>
-        <p style="color: var(--text-muted); margin-top: 2rem; font-size: 0.9rem;">&copy; 2026 Sharko Inc. All rights reserved.</p>
+    <main class="flex-grow pt-20">
+        <section class="relative pt-24 pb-32 lg:pt-36 lg:pb-40 overflow-hidden">
+            <!-- Background glow effects -->
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-lg h-[400px] bg-accent-glow/20 blur-[100px] rounded-full pointer-events-none"></div>
+            
+            <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white tracking-tight mb-8 max-w-4xl mx-auto leading-tight">
+                    Intelligent Code Analysis & <br class="hidden md:block" />
+                    <span class="text-gradient">Architecture Optimization</span> <br class="hidden md:block" />
+                    for Modern Engineering Teams.
+                </h1>
+                
+                <p class="mt-4 max-w-2xl text-lg md:text-xl text-slate-400 mx-auto mb-10 leading-relaxed">
+                    Sharko Inc. leverages advanced LLM reasoning to audit, optimize, and secure complex multi-file codebases. Ship robust Python, Java, and C applications faster with automated, context-aware architectural insights.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row justify-center gap-4 mt-8">
+                    <a href="#contact" class="inline-flex items-center justify-center px-8 py-3.5 text-base font-medium rounded-full text-white bg-gradient-to-r from-accent-blue to-accent-purple hover:shadow-[0_0_20px_rgba(99,102,241,0.4)] transition-all duration-300 transform hover:-translate-y-0.5">
+                        Request API Access
+                    </a>
+                    <a href="#architecture" class="inline-flex items-center justify-center px-8 py-3.5 text-base font-medium rounded-full text-slate-300 bg-surface border border-slate-700 hover:bg-slate-700 hover:text-white transition-all duration-300">
+                        Read the Documentation
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-10 border-y border-white/5 bg-slate-900/50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <p class="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-6">
+                    Seamlessly integrates with your environment
+                </p>
+                <div class="flex flex-wrap justify-center gap-3 md:gap-6">
+                    <span class="px-4 py-2 rounded-full bg-surface border border-slate-700 text-sm font-medium text-slate-300 flex items-center gap-2">
+                        Python 3.12+
+                    </span>
+                    <span class="px-4 py-2 rounded-full bg-surface border border-slate-700 text-sm font-medium text-slate-300 flex items-center gap-2">
+                        Java Spring Boot
+                    </span>
+                    <span class="px-4 py-2 rounded-full bg-surface border border-slate-700 text-sm font-medium text-slate-300 flex items-center gap-2">
+                        C / C++ Embedded
+                    </span>
+                    <span class="px-4 py-2 rounded-full bg-surface border border-slate-700 text-sm font-medium text-slate-300 flex items-center gap-2">
+                        GitHub / GitLab CI/CD
+                    </span>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="py-24 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Core Capabilities</h2>
+                    <p class="text-slate-400 max-w-2xl mx-auto">Beyond simple linting. We provide deep, context-aware insights to elevate your engineering standards.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Feature 1 -->
+                    <div class="bg-surface/50 backdrop-blur-sm p-8 rounded-2xl border border-slate-700/50 hover:border-accent-blue/50 transition-colors duration-300 group">
+                        <div class="w-12 h-12 rounded-lg bg-accent-blue/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                            <svg class="w-6 h-6 text-accent-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Deep Contextual Code Review</h3>
+                        <p class="text-slate-400 leading-relaxed">Traditional linters catch syntax errors. Our AI engine understands your business logic. By processing thousands of lines of code simultaneously, we detect structural flaws and anti-patterns that standard tools miss.</p>
+                    </div>
+
+                    <!-- Feature 2 -->
+                    <div class="bg-surface/50 backdrop-blur-sm p-8 rounded-2xl border border-slate-700/50 hover:border-accent-purple/50 transition-colors duration-300 group">
+                        <div class="w-12 h-12 rounded-lg bg-accent-purple/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                            <svg class="w-6 h-6 text-accent-purple" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Automated Vulnerability Detection</h3>
+                        <p class="text-slate-400 leading-relaxed">Security shouldn't be an afterthought. Sharko scans your repositories for OWASP vulnerabilities, memory leaks in C, and unchecked exceptions in Java, providing ready-to-merge remediation patches.</p>
+                    </div>
+
+                    <!-- Feature 3 -->
+                    <div class="bg-surface/50 backdrop-blur-sm p-8 rounded-2xl border border-slate-700/50 hover:border-accent-blue/50 transition-colors duration-300 group">
+                        <div class="w-12 h-12 rounded-lg bg-accent-blue/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                            <svg class="w-6 h-6 text-accent-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Algorithmic Optimization</h3>
+                        <p class="text-slate-400 leading-relaxed">Stop wasting compute resources. Our engine analyzes time and space complexity (Big O) across your functions, suggesting highly optimized alternatives for CPU-intensive tasks.</p>
+                    </div>
+
+                    <!-- Feature 4 -->
+                    <div class="bg-surface/50 backdrop-blur-sm p-8 rounded-2xl border border-slate-700/50 hover:border-accent-purple/50 transition-colors duration-300 group">
+                        <div class="w-12 h-12 rounded-lg bg-accent-purple/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                            <svg class="w-6 h-6 text-accent-purple" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Zero-Hallucination Audits</h3>
+                        <p class="text-slate-400 leading-relaxed">We built our pipeline specifically for strict algorithmic environments. By constraining our AI models with rigid prompting frameworks and multi-step verification, we ensure that every code suggestion is functionally accurate and immediately deployable.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="architecture" class="py-24 bg-slate-900/30 border-y border-white/5">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
+                    <div class="mb-12 lg:mb-0">
+                        <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Built on Next-Generation AI Models</h2>
+                        <p class="text-xl text-slate-400 mb-8 leading-relaxed">
+                            At Sharko Inc., we are pioneering a new approach to static application security testing (SAST). Under the hood, it's a symphony of specialized intelligence.
+                        </p>
+                        <a href="#contact" class="text-accent-blue hover:text-blue-400 font-medium inline-flex items-center gap-2 transition-colors">
+                            Explore API Documentation 
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                            </svg>
+                        </a>
+                    </div>
+                    
+                    <div class="space-y-8">
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 mt-1">
+                                <div class="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center border border-blue-500/30">
+                                    <div class="w-2.5 h-2.5 rounded-full bg-blue-400"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold text-white mb-2">Massive Context Ingestion</h4>
+                                <p class="text-slate-400">We don't just analyze snippets. We feed entire project directories, including documentation and dependency trees, into massive context-window LLMs.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 mt-1">
+                                <div class="w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center border border-purple-500/30">
+                                    <div class="w-2.5 h-2.5 rounded-full bg-purple-400"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold text-white mb-2">Multi-Agent Reasoning</h4>
+                                <p class="text-slate-400">Our backend utilizes specialized AI agents. One agent audits security, another optimizes performance, and a third ensures strict adherence to clean code principles.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 mt-1">
+                                <div class="w-8 h-8 rounded-full bg-indigo-500/20 flex items-center justify-center border border-indigo-500/30">
+                                    <div class="w-2.5 h-2.5 rounded-full bg-indigo-400"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold text-white mb-2">Deterministic Outputs</h4>
+                                <p class="text-slate-400">Through rigorous temperature control and structured JSON outputs, we transform probabilistic AI models into reliable engineering tools.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="use-cases" class="py-24">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold text-white mb-4">Built for Engineering Teams</h2>
+                    <p class="text-slate-400 max-w-2xl mx-auto">Whether you're building the next unicorn or modernizing legacy systems.</p>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-gradient-to-b from-surface to-background p-8 rounded-2xl border border-slate-700">
+                        <span class="text-xs font-bold tracking-widest text-accent-blue uppercase mb-4 block">Startups & Scale-ups</span>
+                        <h3 class="text-2xl font-bold text-white mb-4">Accelerate R&D</h3>
+                        <p class="text-slate-400 mb-6">Let our AI act as your senior staff engineer, reviewing every pull request so your human developers can focus on shipping features rather than hunting bugs.</p>
+                    </div>
+
+                    <div class="bg-gradient-to-b from-surface to-background p-8 rounded-2xl border border-slate-700">
+                        <span class="text-xs font-bold tracking-widest text-accent-purple uppercase mb-4 block">Enterprise</span>
+                        <h3 class="text-2xl font-bold text-white mb-4">Modernize Legacy Code</h3>
+                        <p class="text-slate-400 mb-6">Refactoring a monolithic Java application? Sharko maps out complex dependencies and safely guides your team through the strangler fig pattern to modernize your architecture.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="py-24 bg-slate-900/50 border-t border-white/5">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-3xl font-bold text-white mb-8">About Us</h2>
+                <p class="text-lg text-slate-300 leading-relaxed mb-10">
+                    Founded in 2026, Sharko Inc. was built on a simple premise: developers spend too much time debugging and reviewing code, and not enough time creating. We are bridging the gap between artificial intelligence and software engineering, creating tools that understand code as deeply as the humans who write it.
+                </p>
+                <div class="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-surface border border-slate-700 text-slate-300">
+                    <svg class="w-5 h-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    <span class="font-medium text-sm">Headquarters: Sharko Inc. R&D Division, Le Havre, France.</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact" class="bg-background py-12 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center gap-2 mb-4">
+                        <svg class="w-6 h-6 text-accent-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                        <span class="font-bold text-lg text-white">Sharko Inc.</span>
+                    </div>
+                    <p class="text-sm text-slate-500 max-w-xs">Intelligent Code Analysis & Architecture Optimization for Modern Engineering Teams.</p>
+                </div>
+                
+                <div>
+                    <h4 class="text-white font-semibold mb-4 text-sm">Legal</h4>
+                    <ul class="space-y-2 text-sm text-slate-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Startup Program Guidelines</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-white font-semibold mb-4 text-sm">Contact & Social</h4>
+                    <ul class="space-y-2 text-sm text-slate-400">
+                        <li><a href="mailto:hello@fruitborne.me" class="hover:text-white transition-colors">hello@fruitborne.me</a></li>
+                        <li><a href="mailto:support@fruitborne.me" class="hover:text-white transition-colors">support@fruitborne.me</a></li>
+                        <li class="pt-2 flex gap-4">
+                            <a href="#" class="text-slate-400 hover:text-white transition-colors">LinkedIn</a>
+                            <a href="#" class="text-slate-400 hover:text-white transition-colors">GitHub</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-sm text-slate-500">Sharko Inc. © 2026. All rights reserved.</p>
+            </div>
+        </div>
     </footer>
 
 </body>
