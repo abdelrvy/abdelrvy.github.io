@@ -1,0 +1,220 @@
+/* Wiki FruitBorne : mise en page de wiki classique, couleurs du jeu (bois, or, parchemin). Aucune police externe. */
+@font-face { font-family: "Luckiest Guy"; src: url("polices/LuckiestGuy-Regular.ttf") format("truetype"); font-display: swap; }
+
+:root {
+  --fond: #efe4cf;          /* parchemin */
+  --page: #fffaf0;
+  --texte: #2b1a10;
+  --texte-doux: #6b5544;
+  --bois: #3a1f10;          /* barre du haut */
+  --bois-2: #5b3420;
+  --or: #e2a521;
+  --or-fonce: #9c6a0a;
+  --lien: #a03a12;
+  --lien-vu: #7c3a1e;
+  --bord: #d8c6a4;
+  --entete-table: #f1e2c2;
+  --rayure: #faf3e4;
+  --boite: #f7eedb;
+  --rouge: #b3261e;
+  --vert: #3f7d20;
+  --ombre: 0 1px 2px rgba(60, 30, 10, .12);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --fond: #1c130d; --page: #261a12; --texte: #f2e6d3; --texte-doux: #c2ab92; --bois: #120b07; --bois-2: #2d1a0f;
+    --or: #f0b93a; --or-fonce: #f0b93a; --lien: #f59b62; --lien-vu: #e0a37c; --bord: #4a3424; --entete-table: #33241a;
+    --rayure: #2b1e15; --boite: #2f2117; --rouge: #ff8a80; --vert: #9ccc65; --ombre: none;
+  }
+}
+:root[data-theme="dark"] {
+  --fond: #1c130d; --page: #261a12; --texte: #f2e6d3; --texte-doux: #c2ab92; --bois: #120b07; --bois-2: #2d1a0f;
+  --or: #f0b93a; --or-fonce: #f0b93a; --lien: #f59b62; --lien-vu: #e0a37c; --bord: #4a3424; --entete-table: #33241a;
+  --rayure: #2b1e15; --boite: #2f2117; --rouge: #ff8a80; --vert: #9ccc65; --ombre: none;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--fond); color: var(--texte);
+  font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+a { color: var(--lien); text-decoration: none; }
+a:hover { text-decoration: underline; }
+img { max-width: 100%; height: auto; }
+
+/* ---- barre du haut */
+.barre {
+  position: sticky; top: 0; z-index: 20; display: flex; align-items: center; gap: 12px;
+  padding: 8px 16px; background: linear-gradient(var(--bois-2), var(--bois)); border-bottom: 3px solid var(--or);
+}
+.logo { display: flex; align-items: center; gap: 10px; color: #fff4dc; }
+.logo:hover { text-decoration: none; }
+.logo img { width: 38px; height: 38px; border-radius: 8px; }
+.logo span { font-family: "Luckiest Guy", Impact, sans-serif; font-size: 22px; letter-spacing: .5px; color: var(--or); text-shadow: 0 2px 0 #3a1f10; padding-top: 3px; }
+.recherche { position: relative; flex: 1; max-width: 520px; margin-left: auto; }
+.recherche input {
+  width: 100%; padding: 8px 12px; border-radius: 6px; border: 1px solid #7a5236; background: #fff8ea; color: #2b1a10; font-size: 15px;
+}
+.resultats {
+  position: absolute; left: 0; right: 0; top: calc(100% + 4px); background: var(--page); border: 1px solid var(--bord);
+  border-radius: 6px; box-shadow: 0 6px 18px rgba(0, 0, 0, .25); max-height: 70vh; overflow: auto; display: none;
+}
+.resultats.ouvert { display: block; }
+.resultats a { display: flex; gap: 10px; align-items: center; padding: 7px 10px; color: var(--texte); border-bottom: 1px solid var(--bord); }
+.resultats a:hover, .resultats a.actif { background: var(--boite); text-decoration: none; }
+.resultats img { width: 32px; height: 32px; object-fit: contain; }
+.resultats small { color: var(--texte-doux); display: block; font-size: 12px; }
+.resultats .vide { padding: 10px; color: var(--texte-doux); }
+.langues { display: flex; gap: 4px; }
+.langues a { color: #f4e3c3; font-size: 13px; font-weight: 600; padding: 4px 7px; border-radius: 4px; border: 1px solid transparent; }
+.langues a.actuelle { border-color: var(--or); color: var(--or); }
+.bouton-menu { display: none; background: none; border: 1px solid #7a5236; color: #f4e3c3; border-radius: 6px; padding: 6px 10px; font-size: 14px; }
+
+/* ---- colonne de navigation + page */
+.cadre { display: flex; max-width: 1280px; margin: 0 auto; }
+.nav {
+  width: 230px; flex: none; padding: 16px 10px 40px 16px; font-size: 14px;
+  position: sticky; top: 58px; align-self: flex-start; max-height: calc(100vh - 58px); overflow: auto;
+}
+.nav h3 { font-size: 12px; text-transform: uppercase; letter-spacing: .8px; color: var(--texte-doux); margin: 16px 0 4px; }
+.nav ul { list-style: none; margin: 0; padding: 0; }
+.nav li a { display: block; padding: 3px 8px; border-radius: 4px; color: var(--texte); }
+.nav li a:hover { background: var(--boite); text-decoration: none; }
+.nav li a.ici { background: var(--entete-table); font-weight: 600; }
+.nav li span.desactive { display: block; padding: 3px 8px; color: var(--texte-doux); }
+.nav li span.desactive em { font-size: 11px; font-style: normal; border: 1px solid var(--bord); border-radius: 8px; padding: 0 5px; margin-left: 4px; }
+
+main.page {
+  flex: 1; min-width: 0; background: var(--page); margin: 16px 16px 32px 0; padding: 18px 28px 28px;
+  border: 1px solid var(--bord); border-radius: 4px; box-shadow: var(--ombre);
+}
+.fil { font-size: 13px; color: var(--texte-doux); margin-bottom: 4px; }
+.fil a { color: var(--texte-doux); }
+h1 { font-family: "Luckiest Guy", Impact, sans-serif; font-weight: normal; font-size: 34px; line-height: 1.15; margin: 6px 0 12px; letter-spacing: .4px; padding-bottom: 6px; border-bottom: 1px solid var(--bord); }
+h2 { font-family: "Luckiest Guy", Impact, sans-serif; font-weight: normal; font-size: 24px; letter-spacing: .3px; margin: 28px 0 10px; padding-bottom: 4px; border-bottom: 1px solid var(--bord); clear: none; }
+h3 { font-size: 18px; margin: 20px 0 8px; }
+p { margin: 0 0 12px; }
+.chapeau { font-size: 16.5px; }
+.note { font-size: 13.5px; color: var(--texte-doux); }
+.etiquette { display: inline-block; font-size: 12px; font-weight: 700; padding: 1px 8px; border-radius: 10px; border: 1px solid var(--bord); background: var(--boite); margin-right: 4px; }
+
+/* ---- boite d'infos (a droite) */
+.infobox {
+  float: right; clear: right; width: 300px; margin: 0 0 16px 22px; background: var(--boite);
+  border: 1px solid var(--bord); border-radius: 4px; font-size: 14px; overflow: hidden;
+}
+.infobox .titre { background: linear-gradient(var(--bois-2), var(--bois)); color: var(--or); font-family: "Luckiest Guy", Impact, sans-serif; font-size: 20px; text-align: center; padding: 8px 8px 5px; letter-spacing: .4px; }
+.infobox .onglets { display: flex; border-bottom: 1px solid var(--bord); }
+.infobox .onglets button { flex: 1; background: none; border: 0; border-bottom: 2px solid transparent; padding: 6px 4px; font-size: 13px; color: var(--texte-doux); cursor: pointer; }
+.infobox .onglets button.actif { color: var(--texte); border-bottom-color: var(--or); font-weight: 600; }
+.infobox .image { background: var(--page); text-align: center; padding: 8px; }
+.infobox .image img { display: block; margin: 0 auto; max-height: 260px; object-fit: contain; }
+.infobox .image img.couvrir { width: 100%; max-height: none; border-radius: 2px; }
+.infobox .legende { font-size: 12px; color: var(--texte-doux); text-align: center; padding: 0 8px 6px; background: var(--page); }
+.infobox .panneau[hidden] { display: none; }
+.infobox h4 { margin: 0; padding: 5px 10px; background: var(--entete-table); font-size: 13px; text-align: center; border-top: 1px solid var(--bord); border-bottom: 1px solid var(--bord); }
+.infobox dl { margin: 0; display: grid; grid-template-columns: 42% 58%; }
+.infobox dt { font-weight: 600; padding: 5px 10px; border-bottom: 1px solid var(--bord); }
+.infobox dd { margin: 0; padding: 5px 10px; border-bottom: 1px solid var(--bord); }
+.infobox dl > :nth-last-child(-n+2) { border-bottom: 0; }
+
+/* ---- sommaire */
+.sommaire { display: inline-block; background: var(--boite); border: 1px solid var(--bord); border-radius: 4px; padding: 8px 16px 8px 12px; margin: 4px 0 12px; font-size: 14px; min-width: 220px; }
+.sommaire b { display: block; text-align: center; margin-bottom: 4px; }
+.sommaire ol { margin: 0; padding-left: 22px; }
+
+/* ---- tableaux */
+.table-defile { overflow-x: auto; margin: 0 0 16px; }
+table.wiki { border-collapse: collapse; font-size: 14.5px; min-width: 60%; background: var(--page); }
+table.wiki th, table.wiki td { border: 1px solid var(--bord); padding: 6px 10px; text-align: left; vertical-align: middle; }
+table.wiki th { background: var(--entete-table); font-weight: 700; white-space: nowrap; }
+table.wiki tbody tr:nth-child(even) { background: var(--rayure); }
+table.wiki td.n, table.wiki th.n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+table.wiki td.c { text-align: center; }
+table.wiki img.icone { width: 28px; height: 28px; vertical-align: middle; object-fit: contain; margin-right: 6px; }
+table.wiki .ligne-boss { background: rgba(179, 38, 30, .07); }
+.sous { color: var(--texte-doux); font-size: 12.5px; }
+
+/* ---- citation de PNJ */
+blockquote.pnj { margin: 0 0 16px; padding: 10px 14px; background: var(--boite); border-left: 4px solid var(--or); font-style: italic; }
+blockquote.pnj cite { display: block; font-style: normal; font-weight: 600; font-size: 13px; margin-top: 4px; color: var(--texte-doux); }
+
+/* ---- galeries et cartes */
+.galerie { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; margin: 0 0 16px; }
+.galerie figure { margin: 0; background: var(--boite); border: 1px solid var(--bord); border-radius: 4px; overflow: hidden; }
+.galerie img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+.galerie figcaption { font-size: 12.5px; padding: 5px 8px; color: var(--texte-doux); }
+.vignettes { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; margin: 0 0 16px; }
+.vignettes a { display: block; background: var(--boite); border: 1px solid var(--bord); border-radius: 4px; padding: 8px; text-align: center; color: var(--texte); }
+.vignettes a:hover { border-color: var(--or); text-decoration: none; }
+.vignettes img { display: block; width: 100%; aspect-ratio: 16 / 10; height: auto; object-fit: cover; border-radius: 2px; margin-bottom: 6px; }
+.vignettes img.icone { aspect-ratio: 1; object-fit: contain; width: 72px; margin: 0 auto 6px; }
+.vignettes b { display: block; font-size: 14px; }
+.vignettes small { color: var(--texte-doux); font-size: 12px; }
+.vignettes .bientot { opacity: .65; }
+
+/* ---- boite de navigation en bas de page */
+.navbox { clear: both; margin-top: 30px; border: 1px solid var(--bord); border-radius: 4px; font-size: 14px; overflow: hidden; }
+.navbox .titre { background: linear-gradient(var(--bois-2), var(--bois)); color: var(--or); text-align: center; padding: 6px; font-weight: 700; }
+.navbox .rangee { display: grid; grid-template-columns: 170px 1fr; border-top: 1px solid var(--bord); }
+.navbox .rangee > b { background: var(--entete-table); padding: 6px 10px; font-size: 13px; }
+.navbox .rangee > div { padding: 6px 10px; background: var(--page); }
+.navbox .rangee > div a:not(:last-child)::after, .navbox .rangee > div span:not(:last-child)::after { content: " · "; color: var(--texte-doux); }
+.navbox .rangee span { color: var(--texte-doux); }
+
+/* ---- accueil */
+.bandeau { position: relative; margin: -18px -28px 18px; border-bottom: 3px solid var(--or); overflow: hidden; }
+.bandeau img { display: block; width: 100%; aspect-ratio: 21 / 8; object-fit: cover; }
+.bandeau .texte { position: absolute; left: 0; right: 0; bottom: 0; padding: 40px 24px 14px; background: linear-gradient(transparent, rgba(20, 10, 4, .85)); color: #fff4dc; }
+.bandeau h1 { color: var(--or); border: 0; margin: 0 0 2px; text-shadow: 0 2px 0 #3a1f10; }
+.bandeau p { margin: 0; font-size: 15px; }
+.chiffres { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px; margin: 0 0 18px; }
+.chiffres a, .chiffres div { display: block; text-align: center; padding: 8px; background: var(--boite); border: 1px solid var(--bord); border-radius: 4px; color: var(--texte); }
+.chiffres b { display: block; font-family: "Luckiest Guy", Impact, sans-serif; font-weight: normal; font-size: 26px; color: var(--or-fonce); line-height: 1.1; }
+.chiffres small { font-size: 12px; color: var(--texte-doux); text-transform: uppercase; letter-spacing: .5px; }
+.deux-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+.pied { clear: both; margin-top: 30px; padding-top: 10px; border-top: 1px solid var(--bord); font-size: 12.5px; color: var(--texte-doux); }
+
+/* ---- telephone */
+@media (max-width: 900px) {
+  .nav { position: fixed; top: 55px; left: 0; bottom: 0; max-height: none; z-index: 30; background: var(--page); border-right: 1px solid var(--bord); transform: translateX(-105%); transition: transform .2s; width: 260px; }
+  .nav.ouverte { transform: none; box-shadow: 4px 0 18px rgba(0, 0, 0, .3); }
+  .bouton-menu { display: block; }
+  main.page { margin: 0; border: 0; border-radius: 0; padding: 14px 16px 24px; }
+  .bandeau { margin: -14px -16px 14px; }
+  .logo span { display: none; }
+  .deux-col { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .infobox { float: none; width: 100%; margin: 0 0 16px; }
+  h1 { font-size: 28px; }
+  .barre { gap: 8px; padding: 8px 12px; }
+  .navbox .rangee { grid-template-columns: 1fr; }
+  .bandeau img { aspect-ratio: 16 / 10; }
+}
+
+/* raretes (couleurs des cartes du jeu) et touches */
+.rarete { display: inline-block; padding: 1px 7px; border-radius: 3px; font-size: 12px; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: .03em; }
+.rarete.r1 { background: #7d8a93; }
+.rarete.r2 { background: #2f7fd1; }
+.rarete.r3 { background: #8a3fc9; }
+.rarete.r4 { background: #d9901c; }
+kbd { display: inline-block; padding: 1px 6px; border: 1px solid var(--bord); border-bottom-width: 2px; border-radius: 3px; background: var(--boite); font: 12px/1.5 inherit; white-space: nowrap; }
+table.wiki td small { color: var(--texte-doux); }
+.infobox .image img, .vignettes img, .galerie img, .bandeau img { height: auto; }
+
+/* passe 2 : etapes, route de l'archipel, FAQ */
+ol.etapes { padding-left: 22px; }
+ol.etapes li { margin: 0 0 8px; }
+ol.route { list-style: none; padding: 0; margin: 0 0 16px; counter-reset: route; display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 10px; }
+ol.route li { counter-increment: route; position: relative; }
+ol.route a { display: block; background: var(--boite); border: 1px solid var(--bord); border-radius: 4px; padding: 8px; text-align: center; color: var(--texte); }
+ol.route a:hover { border-color: var(--or); text-decoration: none; }
+ol.route a::before { content: counter(route); position: absolute; top: 4px; left: 4px; background: var(--or); color: #2b1a10; font-weight: 700; border-radius: 50%; width: 24px; height: 24px; line-height: 24px; font-size: 13px; }
+ol.route img { display: block; width: 100%; aspect-ratio: 16 / 10; height: auto; object-fit: cover; border-radius: 2px; margin-bottom: 6px; }
+ol.route b { display: block; font-size: 14px; }
+ol.route small { color: var(--texte-doux); font-size: 12px; }
+dl.faq dt { font-weight: 700; margin-top: 14px; }
+dl.faq dd { margin: 4px 0 0; }
